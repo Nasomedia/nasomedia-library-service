@@ -8,3 +8,4 @@ class LikedSeries(Base):
     id = Column(Integer, primary_key=True, index=True) # series의 id
 
     user_id = Column(Integer, nullable=False)
+    series_id = Column(Integer, nullable=False)
