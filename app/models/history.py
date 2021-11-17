@@ -4,8 +4,8 @@ from app.utils import get_kst_now
 
 from app.db import Base
 
-class ReadHistory(Base):
-    __tablename__ = "read_history"
+class History(Base):
+    __tablename__ = "history"
     id = Column(Integer, primary_key=True, index=True)
 
     latest_read = Column(DateTime(timezone=True), nullable=False, default=get_kst_now)

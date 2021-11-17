@@ -3,9 +3,9 @@ from app.utils import get_kst_now
 
 from app.db import Base
 
-class PurchasedEpisode(Base):
-    __tablename__ = "purchased_episode"
-    id = Column(Integer, primary_key=True, index=True)
+class Liked(Base):
+    __tablename__ = "liked"
+    id = Column(Integer, primary_key=True, index=True) # series의 id
 
     user_id = Column(Integer, nullable=False)
-    episode_id = Column(Integer, nullable=False)
+    series_id = Column(Integer, nullable=False)

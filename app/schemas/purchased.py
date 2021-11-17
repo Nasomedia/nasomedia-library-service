@@ -5,28 +5,28 @@ from pydantic import BaseModel
 from . import episode
 
 # Shared properties
-class PurchasedEpisodeBase(BaseModel):
+class PurchasedBase(BaseModel):
     pass
 
 # Properties to receive on creation
-class PurchasedEpisodeCreate(PurchasedEpisodeBase):
+class PurchasedCreate(PurchasedBase):
     pass
 
 # Properties to receive on update
-class PurchasedEpisodeUpdate(PurchasedEpisodeBase):
+class PurchasedUpdate(PurchasedBase):
     pass
 
 # Properties shared by models stored in DB
-class PurchasedEpisodeInDBBase(PurchasedEpisodeBase):
+class PurchasedInDBBase(PurchasedBase):
     class Config:
         orm_mode = True
 
 # Properties to return to client
-class PurchasedEpisode(PurchasedEpisodeBase):
+class Purchased(PurchasedInDBBase):
     episode: episode.Episode
 
 # Properties properties stored in DB
-class PurchasedEpisodeInDB(PurchasedEpisodeInDBBase):
+class PurchasedInDB(PurchasedInDBBase):
     id: int
     episode_id: int
     user_id: int

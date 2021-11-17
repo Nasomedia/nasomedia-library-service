@@ -1,3 +1,3 @@
-from .liked_series import LikedSeries
-from .purchased_episode import PurchasedEpisode
-from .read_history import ReadHistory
+from .liked import Liked
+from .purchased import Purchased
+from .history import History
