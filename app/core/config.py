@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
     
     IDENTITY_SERVICE_BASE_URL = os.getenv("IDENTITY_SERVICE_BASE_URL")
+    MAIN_SERVICE_BASE_URL = os.getenv("MAIN_SERVICE_BASE_URL")
     TOKEN_URL = os.getenv("TOKEN_URL")
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
