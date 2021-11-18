@@ -3,6 +3,8 @@ from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 
+from pydantic.networks import int_domain_regex
+
 from . import episode
 
 # Shared properties
@@ -15,7 +17,7 @@ class HistoryCreate(HistoryBase):
 
 # Properties to receive on update
 class HistoryUpdate(HistoryBase):
-    pass
+    progress: int
 
 # Properties shared by models stored in DB
 class HistoryInDBBase(HistoryBase):
@@ -24,7 +26,7 @@ class HistoryInDBBase(HistoryBase):
 
 # Properties to return to client
 class History(HistoryInDBBase):
-    latest_read: datetime
+    latest_date: datetime
     progress: int
     episode: episode.Episode
 
