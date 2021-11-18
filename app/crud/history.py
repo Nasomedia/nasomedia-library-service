@@ -24,7 +24,7 @@ class CRUDHistory(CRUDBase[History, HistoryCreate, HistoryUpdate]):
         *, 
         user_id:int, 
         episode_id: int
-    ) -> List[History]:
+    ) -> History:
         return db.query(self.model)\
             .filter(self.model.user_id == user_id)\
             .filter(self.model.episode_id == episode_id)\
