@@ -8,7 +8,7 @@ class History(Base):
     __tablename__ = "history"
     id = Column(Integer, primary_key=True, index=True)
 
-    latest_read = Column(DateTime(timezone=True), nullable=False, default=get_kst_now)
+    latest_date = Column(DateTime(timezone=True), nullable=False, default=get_kst_now)
     progress = Column(Integer, nullable=False, default=0)
 
     user_id = Column(Integer, nullable=False)
