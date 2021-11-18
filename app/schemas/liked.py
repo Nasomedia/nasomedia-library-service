@@ -4,11 +4,11 @@ from . import series
 
 # Shared properties
 class LikedBase(BaseModel):
-    series_id: Optional[int]
+    pass
 
 # Properties to receive on creation
 class LikedCreate(LikedBase):
-    series_id: int
+    pass
 
 # Properties to receive on update
 class LikedUpdate(LikedBase):
