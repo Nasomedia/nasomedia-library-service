@@ -12,7 +12,7 @@ from app.crud import purchased
 router = APIRouter()
 
 
-@router.get("/{episode_id}", response_model=schemas.Purchased)
+@router.get("/{episode_id}", response_model=schemas.Episode)
 async def read_purchased(
     db: Session = Depends(deps.get_db),
     user: schemas.User = Depends(deps.get_current_active_user),
@@ -27,12 +27,11 @@ async def read_purchased(
     if not purchased:
         raise HTTPException(status_code=404, detail="Purchased episode not found")
     episode = await main_serivce.get_episode(episode_id=purchased.episode_id)
-    purchased = schemas.Purchased(episode=episode)
 
-    return purchased
+    return episode
 
 
-@router.get("", response_model=List[schemas.Purchased])
+@router.get("", response_model=List[schemas.Episode])
 async def read_purchased_list(
     db: Session = Depends(deps.get_db),
     user: schemas.User = Depends(deps.get_current_active_user),
@@ -41,16 +40,16 @@ async def read_purchased_list(
     """
     Retrieve purchased episode
     """
-    response: List[schemas.Purchased] = []
+    response: List[schemas.Episode] = []
     purchased_list = crud.purchased.get_multi_with_user(db, user_id=user.id)
     for purchased in purchased_list:
         episode = await main_serivce.get_episode(episode_id=purchased.episode_id)
-        response.append(schemas.Purchased(episode=episode))
+        response.append(episode)
 
     return response
 
 
-@router.post("/{episode_id}", response_model=schemas.Purchased)
+@router.post("/{episode_id}", response_model=schemas.Episode)
 async def create_purchased(
     db: Session = Depends(deps.get_db),
     user: schemas.User = Depends(deps.get_current_active_user),
@@ -61,17 +60,19 @@ async def create_purchased(
     """
     Create new purchased episode
     """
-    crud.purchased.create_with_user_episode(
+    purchased = crud.purchased.get_with_user_and_episode(db, user_id=user.id, episode_id=episode_id)
+    if not purchased:
+        raise HTTPException(status_code=400, detail="Episode is already purchased")
+    crud.purchased.create_with_user_and_episode(
         db, 
         user_id=user.id, 
         episode_id=episode_id
     )
     episode = await main_service.get_episode(episode_id=episode_id)
-    response = schemas.Purchased(episode=episode)
-    return response
+    return episode
 
 
-@router.delete("/{episode_id}", response_model=schemas.Purchased)
+@router.delete("/{episode_id}", response_model=schemas.Episode)
 async def delete_purchased(
     db: Session = Depends(deps.get_db),
     user: schemas.User = Depends(deps.get_current_active_user),
@@ -89,5 +90,4 @@ async def delete_purchased(
         raise HTTPException(status_code=404, detail="Purchased episode not found")
     crud.purchased.delete(db, id=purchased.id)
     episode = await main_service.get_episode(episode_id=episode_id)
-    response = schemas.Purchased(episode=episode)
-    return response
+    return episode

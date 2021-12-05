@@ -23,7 +23,7 @@ class PurchasedInDBBase(PurchasedBase):
 
 # Properties to return to client
 class Purchased(PurchasedInDBBase):
-    episode: episode.Episode
+    pass
 
 # Properties properties stored in DB
 class PurchasedInDB(PurchasedInDBBase):

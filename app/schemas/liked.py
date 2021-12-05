@@ -21,7 +21,7 @@ class LikedInDBBase(LikedBase):
 
 # Properties to return to client
 class Liked(LikedInDBBase):
-    series: series.Series
+    pass
 
 # Properties properties stored in DB
 class LikedInDB(LikedInDBBase):

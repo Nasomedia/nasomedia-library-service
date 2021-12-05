@@ -34,7 +34,7 @@ class CRUDPurchased(CRUDBase[Purchased, PurchasedCreate, PurchasedUpdate]):
             .filter(self.model.episode_id == episode_id)\
             .first()
 
-    def create_with_user_episode(
+    def create_with_user_and_episode(
         self, db: Session, *, user_id: int, episode_id: int
     ) -> Purchased:
         db_obj = self.model(
