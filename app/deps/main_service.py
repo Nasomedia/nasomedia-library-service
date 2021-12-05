@@ -23,5 +23,3 @@ class MainService():
                     raise HTTPException(status_code=resp.status, detail=await resp.text())
                 episode_data = await resp.json()
                 return schemas.Series(**episode_data)
-
-    
