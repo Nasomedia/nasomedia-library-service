@@ -17,7 +17,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: hwc9169/nasomedia-cash-service
+          images: hwc9169/nasomedia-library-service
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
