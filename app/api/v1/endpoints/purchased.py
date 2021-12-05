@@ -12,6 +12,26 @@ from app.crud import purchased
 router = APIRouter()
 
 
+@router.get("/{episode_id}", response_model=schemas.Purchased)
+async def read_purchased(
+    db: Session = Depends(deps.get_db),
+    user: schemas.User = Depends(deps.get_current_active_user),
+    main_serivce: deps.MainService = Depends(deps.MainService),
+    *,
+    episode_id: int
+):
+    """
+    Retrieve purchased episode
+    """
+    purchased = crud.purchased.get_with_user(db, episode_id=episode_id, user_id=user.id)
+    if not purchased:
+        raise HTTPException(status_code=404, detail="Purchased episode not found")
+    episode = await main_serivce.get_episode(episode_id=purchased.episode_id)
+    purchased = schemas.Purchased(episode=episode)
+
+    return purchased
+
+
 @router.get("", response_model=List[schemas.Purchased])
 async def read_purchased_list(
     db: Session = Depends(deps.get_db),
@@ -25,7 +45,7 @@ async def read_purchased_list(
     purchased_list = crud.purchased.get_multi_with_user(db, user_id=user.id)
     for purchased in purchased_list:
         episode = await main_serivce.get_episode(episode_id=purchased.episode_id)
-        response.append(schemas.Liked(episode=episode))
+        response.append(schemas.Purchased(episode=episode))
 
     return response
 

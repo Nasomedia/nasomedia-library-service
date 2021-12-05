@@ -14,6 +14,14 @@ class CRUDPurchased(CRUDBase[Purchased, PurchasedCreate, PurchasedUpdate]):
             .filter(self.model.user_id == user_id)\
             .all()
 
+    def get_with_user(
+        self, db: Session, *, episode_id: int, user_id: int
+    ) -> Purchased:
+        return db.query(self.model)\
+            .filter(self.model.episode_id == episode_id)\
+            .filter(self.model.user_id == user_id)\
+            .all()
+
     def get_with_user_and_episode(
         self, 
         db: Session, 
