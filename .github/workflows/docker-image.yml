@@ -16,7 +16,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v3
         with:
           image: hwc9169/nasomedia-library-service
-          tags: latest
+          tag: latest
           registry: docker.io
           dockerfile: ./Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
