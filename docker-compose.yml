@@ -2,9 +2,9 @@ version: '3'
 
 services:
   app:
-    image: hwc9169/nasomedia-library-service:v1.3
+    image: hwc9169/nasomedia-library-service:latest
     ports:
-      - "81:80"
+      - "82:80"
     env_file:
       - .env
     volumes:
