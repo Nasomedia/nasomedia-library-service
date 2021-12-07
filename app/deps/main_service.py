@@ -17,7 +17,7 @@ class MainService():
 
     
     async def get_series(self, series_id: int) -> schemas.Series:
-        print()
+        print(f"{settings.MAIN_SERVICE_BASE_URL}/api/v1/series/{series_id}")
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{settings.MAIN_SERVICE_BASE_URL}/api/v1/series/{series_id}") as resp:
                 if resp.status != 200:
