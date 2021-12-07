@@ -40,18 +40,18 @@ async def create_liked(
     """
     Create new liked series
     """
-    liked = crud.liked.get_with_user_and_series(
-        db, 
-        user_id=user.id, 
-        series_id=series_id
-    )
-    if liked:
-        raise HTTPException(status_code=400, detail="It is already liked")
-    liked = crud.liked.create_with_user_and_series(
-        db, 
-        user_id=user.id, 
-        series_id=series_id
-    )
+    # liked = crud.liked.get_with_user_and_series(
+    #     db, 
+    #     user_id=user.id, 
+    #     series_id=series_id
+    # )
+    # if liked:
+    #     raise HTTPException(status_code=400, detail="It is already liked")
+    # liked = crud.liked.create_with_user_and_series(
+    #     db, 
+    #     user_id=user.id, 
+    #     series_id=series_id
+    # )
     # series = await main_service.get_series(series_id=series_id)
     # response = schemas.Liked(series=series)
     response = schemas.Liked()
