@@ -52,8 +52,9 @@ async def create_liked(
         user_id=user.id, 
         series_id=series_id
     )
-    series = await main_service.get_series(series_id=series_id)
-    response = schemas.Liked(series=series)
+    # series = await main_service.get_series(series_id=series_id)
+    # response = schemas.Liked(series=series)
+    response = schemas.Liked()
     return response
 
 
@@ -70,7 +71,6 @@ async def delete_liked(
     if not liked:
         raise HTTPException(status_code=404, detail="Liked series not found")
     crud.liked.delete(db, id=liked.id)
-    # series = await main_service.get_series(series_id=series_id)
-    # response = schemas.Liked(series=series)
-    response = schemas.Liked()
+    series = await main_service.get_series(series_id=series_id)
+    response = schemas.Liked(series=series)
     return response
