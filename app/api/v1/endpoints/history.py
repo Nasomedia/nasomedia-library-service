@@ -24,10 +24,9 @@ async def read_histories(
     response: List[schemas.History] = []
     histories = crud.history.get_multi_with_user(db, user_id=user.id)
     for history in histories:
-        print(history.latest_date)
         episode = await main_service.get_episode(history.episode_id)
         response.append(schemas.History(
-            latest_read=history.latest_date,
+            latest_date=history.latest_date,
             progress=history.progress,
             episode=episode)
         )
