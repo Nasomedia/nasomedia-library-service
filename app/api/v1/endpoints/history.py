@@ -7,9 +7,7 @@ from sqlalchemy.orm import Session
 from app import crud, schemas, models, deps
 from app.core.config import settings
 
-import aiohttp
-
-from app.schemas import episode
+from app.schemas import Episode
 
 router = APIRouter()
 
@@ -25,8 +23,8 @@ async def read_histories(
     """
     response: List[schemas.History] = []
     histories = crud.history.get_multi_with_user(db, user_id=user.id)
-    print(histories)
     for history in histories:
+        print(history.latest_date)
         episode = await main_service.get_episode(history.episode_id)
         response.append(schemas.History(
             latest_read=history.latest_date,
