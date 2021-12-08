@@ -11,8 +11,8 @@ import aiohttp
 
 from app.schemas import episode
 
-
 router = APIRouter()
+
 
 @router.get("", response_model=List[schemas.History])
 async def read_histories(
@@ -25,6 +25,7 @@ async def read_histories(
     """
     response: List[schemas.History] = []
     histories = crud.history.get_multi_with_user(db, user_id=user.id)
+    print(histories)
     for history in histories:
         episode = await main_service.get_episode(history.episode_id)
         response.append(schemas.History(
